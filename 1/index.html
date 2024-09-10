@@ -1,14 +1,178 @@
-<div class="image-gallery">
-    <div class="image-item">
-        <img src="path/to/your/image1.jpg" alt="Description of image 1">
-        <p>Caption for image 1</p>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 1 Colorizing Gorskii Images</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>My Image Gallery</h1>
+
+        <div class="text-area">
+            <textarea placeholder="Write a quick explanation here..."></textarea>
+        </div>
+
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="assets/Colorized_cathedral.jpg.jpg" alt="Image 1">
+                <div class="caption">Colorised Cathedral</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/Colorized_harvesters.tif.jpg" alt="Image 2">
+                <div class="caption">Caption for Image 2</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/Colorized_emir.tif.jpg" alt="Image 3">
+                <div class="caption">Caption for Image 3</div>
+            </div>
+        </div>
+
+        
     </div>
-    <div class="image-item">
-        <img src="path/to/your/image2.jpg" alt="Description of image 2">
-        <p>Caption for image 2</p>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Portfolio</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Project 1</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#method">Method</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#results">Results</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="image-item">
-        <img src="path/to/your/image3.jpg" alt="Description of image 3">
-        <p>Caption for image 3</p>
+  </nav>
+
+  <!-- Content Section -->
+  <div class="container">
+    
+    <!-- Header Section -->
+    <div class="header-section text-center">
+      <h1>Gorskii Image Alignment</h1>
+      <p class="lead">An exploration of image alignment techniques</p>
     </div>
-</div>
+
+    <!-- Overview Section -->
+    <div id="overview" class="content-section">
+      <h2 class="section-title">Overview</h2>
+      <p>This project focuses on image alignment techniques. For each image, we are given 3 color channels (R, G, and B) and we are required to align the image to the other two channels. The axes are not completely aligned henc the need for external methods to ensure alignemnt. Here we use a Normalized Cross Correlation to compute the optimal shift necessary to align the images. This was implemented with both the naive approach as well as FFT approach. </p>
+    </div>
+
+    <!-- Method Section -->
+    <div id="overview" class="content-section">
+        <h2 class="section-title">Results</h2>
+        <p>Below are the images from the data.zip. The shift values have been reported in the caption based on the follow convention. [(Green Y, Green X, Red Y, Red X)] </p>
+      </div>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="assets/Colorized_cathedral.jpg.jpg" alt="Image 1">
+            <div class="caption">Colorized Cathedral [(5,2,12,3)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_harvesters.tif.jpg" alt="Image 2">
+            <div class="caption">Harversters [(11,55,118,11)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_emir.tif.jpg" alt="Image 3">
+            <div class="caption">The Emir of Burkhara [(49, 24, 106, 41)] </div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_icon.tif.jpg" alt="Image 4">
+            <div class="caption">Icon [(38,16,88,23)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_lady.tif.jpg" alt="Image 5">
+            <div class="caption">The Lady [(57,9,120,13)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_melons.tif.jpg" alt="Image 6">
+            <div class="caption">Melons [(79,8,176,14)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_monastery.jpg.jpg" alt="Image 7">
+            <div class="caption">Monastery [(-3,2,3,2)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_onion_church.tif.jpg" alt="Image 8">
+            <div class="caption">Onion Church [(51,19,107,34)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_sculpture.tif.jpg" alt="Image 9">
+            <div class="caption">Sculpture [(33,-11,140,-27)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_self_portrait.tif.jpg" alt="Image 10">
+            <div class="caption">Self Portrait [(77,29,175,37)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_three_generations.tif.jpg" alt="Image 11">
+            <div class="caption">Three Generations [(56,12,111,7)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_tobolsk.jpg.jpg" alt="Image 12">
+            <div class="caption">Tobolsk [(3,2,6,3)]</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/Colorized_train.tif.jpg" alt="Image 13">
+            <div class="caption">Train [(38,-2,85, 28)]</div>
+        </div>
+    </div>
+    
+      <p class="description">Fig. 1: Diagram illustrating the single-scale alignment approach.</p>
+      <p>The method involves breaking down the image into several layers, performing alignment at each layer before moving to the next scale. This allows for more precise adjustments across varying image sizes.</p>
+    </div>
+
+    <!-- Results Section -->
+    <div id="results" class="content-section">
+      <h2 class="section-title">Results</h2>
+      <div class="image-container">
+        <img src="https://via.placeholder.com/800x400" alt="Aligned Image 1">
+      </div>
+      <p class="description">Fig. 2: Successfully aligned image using the method.</p>
+      <div class="image-container">
+        <img src="https://via.placeholder.com/800x400" alt="Aligned Image 2">
+      </div>
+      <p class="description">Fig. 3: Another result from the alignment process.</p>
+    </div>
+    
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; 2024 My Portfolio</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
