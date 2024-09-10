@@ -144,30 +144,32 @@
             <img src="assets/Colorized_train.tif.jpg" alt="Image 13">
             <div class="caption">Train [(38,-2,85, 28)]</div>
         </div>
+        <div class="gallery-item">
+          <img src="assets/Colorized_AnotherTrain.jpg" alt="Image 13">
+          <div class="caption"> Another Train [(2,2,19,-11)]</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Colorized_Lake.jpg" alt="Image 13">
+        <div class="caption">Lake [(-3,1,-4,1)]</div>
     </div>
-    
-      <p class="description">Fig. 1: Diagram illustrating the single-scale alignment approach.</p>
-      <p>The method involves breaking down the image into several layers, performing alignment at each layer before moving to the next scale. This allows for more precise adjustments across varying image sizes.</p>
+
     </div>
 
     <!-- Results Section -->
     <div id="results" class="content-section">
-      <h2 class="section-title">Results</h2>
-      <div class="image-container">
-        <img src="https://via.placeholder.com/800x400" alt="Aligned Image 1">
+      <h2 class="section-title">Bells and Whistles</h2>
+      <p>Interesting add-ons to this project include the use of FFT and IFFT to compute cross correlations. This greatly enhances speed allowing for the naive fft approach to be comparable in speed to the standard pyramid approach. Automatic cropping was also experimented with. The technique uses saturation to detect which parts of the image to remove.Saturation of only clor is remove based ona fixed threshold. Unfortunately this cut out a lot of the image often and worked best only for the Emir. </p>
+      <div class="gallery"></div>
+        <div class="gallery-item"></div>
+          <img src="assets/CROPPED_Colorized_emir.tif.jpg" alt="Image 13">
+        <div class="caption">Cropped Emir</div>
       </div>
-      <p class="description">Fig. 2: Successfully aligned image using the method.</p>
-      <div class="image-container">
-        <img src="https://via.placeholder.com/800x400" alt="Aligned Image 2">
-      </div>
-      <p class="description">Fig. 3: Another result from the alignment process.</p>
     </div>
-    
-  </div>
+    </div>
 
   <!-- Footer -->
   <footer class="text-center mt-5">
-    <p>&copy; 2024 My Portfolio</p>
+    <p>&copy; My Portfolio</p>
   </footer>
 
   <!-- Scripts -->
