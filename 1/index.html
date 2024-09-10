@@ -83,7 +83,7 @@
     <!-- Overview Section -->
     <div id="overview" class="content-section">
       <h2 class="section-title">Overview</h2>
-      <p>This project focuses on image alignment techniques. For each image, we are given 3 color channels (R, G, and B) and we are required to align the image to the other two channels. The axes are not completely aligned henc the need for external methods to ensure alignemnt. Here we use a Normalized Cross Correlation to compute the optimal shift necessary to align the images. This was implemented with both the naive approach as well as FFT approach. </p>
+      <p>This project focuses on image alignment techniques. For each image, we are given 3 color channels (R, G, and B) and we are required to align the image to the other two channels. The axes are not completely aligned hence the need for external methods to ensure alignemnt. Here we use a Normalized Cross Correlation to compute the optimal shift necessary to align the images. This was implemented with both the naive approach as well as FFT approach. Each color was overlayed on top of their b;ue counter part adn teh optimal shift for image alignment was calculated based on the amplituted of the color in each pixel. With the best alignemnt found, I used the numpy roll function to align the images. I also apllied the same method but in image pyramid format. Larger images were scaled down by a factor of 1/2 3 times to reduce computation time </p>
     </div>
 
     <!-- Method Section -->
