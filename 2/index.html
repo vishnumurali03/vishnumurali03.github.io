@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Portfolio</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Project 2</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#gradients">Gradients</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#sharpening">Sharpening</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#hybridImages">Hybrid Images</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#imageBlending">Image Blending</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content Section -->
+  <div class="container">
+    
+    <!-- Header Section -->
+    <div class="header-section text-center">
+      <h1>Fun with Frequencies</h1>
+      <p class="lead">An exploration of image augmentation through filtering</p>
+    </div>
+
+    <!-- Gradients -->
+    <div id="gradients" class="content-section">
+      <h2 class="section-title">Gradients</h2>
+      <p>In this section, we utilized the difference operaters to mimic a derivative filter on our images. As the derivatives <code>dX = [-1,1]</code> and <code>dY = [-1;1]</code> are 
+        partial derivatives, they must be computed seperately and combined to find the magnitude of the overall derivitave. The partial derivative is computed by using <code>convolve2d</code> 
+        on the image and derivative kernel. The resulting derivatives are then combined using the Pythagorean theorem. Below are the images showing the directional derivatives
+        respectively.</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/Camerman_dX.png" alt="Image 1">
+          <div class="caption">Cameraman Image derivate in X. Shows artifacts in Y</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/Camerman_dY.png" alt="Image 2">
+          <div class="caption">Cameraman Image derivate in Y. Shows artifacts in X</div>
+        </div>
+      </div>
+      <p>These directional derivatives results are then combined using the Pythagorean theorem to generate the overall magnitude of the derivative.The left image is the plain magnitude and the right is the binarized magnitude.</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/Combined_Cameraman.png" alt="Image 3">
+          <div class="caption">Pythagorean Derivative Magnitude</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/binarizedCamerman.png" alt="Image 4">
+          <div class="caption">Threshold of 0.2 applied on previous image</div>
+        </div>
+      </div>
+      <p>Notice how these derivative images are extremelly jagged. This problem can potentially be solved by first applying a guassian filter on the image before the derivative kernels are applied.</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/dxGuass.png" alt="Image 1">
+          <div class="caption">Gaussian filtered image derivative in X. Shows artifacts in Y</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/dYGuass.png" alt="Image 2">
+          <div class="caption">Gaussian filtered image derivative in Y. Shows artifacts in X</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/CombinedGauss.png" alt="Image 2">
+          <div class="caption">Combined derivative</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/CombinedGaussBin.png" alt="Image 2">
+          <div class="caption">Combined derivative binarized</div>
+        </div>
+      </div>
+
+        <p> As you can see the resulting images are far less jagged. The lowpass filtering has resulting in a far more usable edge detections algorithm. A further advantage of this is method is that we can accomplish the computation in 1 convolution. Since the convolution is commutative, the derivative can be precomposed into the Gaussian function and applied as one filter. The image below depicts how the compsed filtering yeilds the same results</p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="assets/oneShotConv.png" alt="Image 2">
+            <div class="caption">Combined derivative one shot</div>
+          </div>
+        </div>
+      
+    </div>
+
+
+    <!-- sharpening Section -->
+    <div id="sharpening" class="content-section">
+        <h2 class="section-title">Sharpening</h2>
+        <p>Below are demonstrations of the image sharpening algorithm. The low-pass filter image is subtracted from the regular image resulting in just the high frequencies <code>highFrequency = Img - lowPass</code>.
+          This component in added back into the image with an alpha factor to determine the extent of the high frequency. </p> 
+          <div class="gallery">
+            <div class="gallery-item">
+              <img src="assets/taj.jpg" alt="Image 1">
+              <div class="caption">Before</div>
+            </div>
+            <div class="gallery-item">
+              <img src="assets/tajSharpened.png" alt="Image 2">
+              <div class="caption">After</div>
+            </div>
+            <div class="gallery-item">
+              <img src="assets/sunset.webp" alt="Image 1">
+              <div class="caption">Before</div>
+            </div>
+            <div class="gallery-item">
+              <img src="assets/sunsetSharpenedPure.png" alt="Image 2">
+              <div class="caption">After</div>
+            </div>
+          </div>
+          <p>As an added test, I have also blurred the original image seen above and attempted to sharpen it back to the original</p>
+          <div class="gallery">
+            <div class="gallery-item">
+                <img src="assets/susnsetBlurry.png" alt="Image 123">
+                <div class="caption">Before (Blurred Sunset)</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/sunsetSharp.png" alt="Image 243">
+                <div class="caption">After (Derived from Blurred Sunset)</div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- Results Section -->
+    <div id="hybridImages" class="content-section">
+      <h2 class="section-title">Hybrid Images</h2>
+      <p></p>
+        In this section, we filter 2 images to isolate high frequencies of one and the low
+        frequencies of the other. Using a hand-tuned threshold frequency, we can combine 2
+        images such that the distance from the image determines what you see. Below you can
+        see the combination of Po from Kung Fu Panda and Kevin from Minions. Stepping back
+        will result in a clear visual of Po, while being close allows you to see Kevin.
+      </p>
+      <h5 class="section-title">Nutmeg and Derek</h>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/NutMegDerek.png" alt="Original Po from Kung Fu Panda">
+          <div class="caption">Combined Derek and Nutmeg</div>
+        </div>
+      </div>
+      <h5 class="section-title">Po and Kevin</h5>
+      
+      
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/po.jpg" alt="Original Po from Kung Fu Panda">
+          <div class="caption">Original Po</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/minion.jpeg" alt="Original Kevin from Minions">
+          <div class="caption">Original Kevin</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/PoAndKevin.png" alt="Hybrid Image of Po and Kevin">
+          <div class="caption">Hybrid Image of Po and Kevin. Kevin in front (HF), Po in back (LF)</div>
+        </div>
+      </div>
+      
+      <p>
+        This was one of the more successful results. The Fourier transform clearly shows how
+        there is enough of a difference in main frequencies to make this work. There is a
+        significant difference between their frequency distributions, allowing the filter
+        to still retain large amounts of the image.
+      </p>
+      
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/PoFourier.png" alt="Fourier Transform of Po">
+          <div class="caption">Po Fourier</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/MinionFourier.png" alt="Fourier Transform of Kevin">
+          <div class="caption">Kevin Fourier</div>
+        </div>
+      </div>
+      <h5 class="section-title">Croissant and Cookie</h5>
+      <p>
+        I also tried merging a croissant image with a cookie image. This yielded a rather
+        spectacular failure where the align function struggled to match the images. Further, 
+        the Fourier transform does not show any significant differences. This made it very 
+        hard to find a filter to separate the images and retain structure.
+      </p>
+      
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/criossant.webp" alt="Image of a croissant">
+          <div class="caption">Croissant</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/cookie.jpeg" alt="Image of a cookie">
+          <div class="caption">Cookie</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/CookieCrosiant.png" alt="Merged image of cookie and croissant">
+          <div class="caption">Merged Image of Cookie and Croissant</div>
+        </div>
+      </div>
+
+      
+
+
+   <!-- Image Blending Section -->
+   <div id="hybridImages" class="content-section">
+    <h2 class="section-title">Image Blending</h2>
+    <p>
+      In this section, we expand on the image pyramid idea from the last project to create blending images. 2 Images are taken and a Gaussian and Laplacian stack is generate for each image. 
+      A Gausian stack for a mask is also generated. Each level of the 3 stacks are composed using the following equation <code>laplacianA*(mask) +  laplacianB*(1-mask)</code>. These images are then combined with the lowest frequency
+      elements and normalized. The result is shown below.
+    </p>
+    <h5 class="section-title">Oraple</h5>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="assets/apple.jpeg" alt="Original Po from Kung Fu Panda">
+        <div class="caption">Original Apple</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/orange.jpeg" alt="Original Kevin from Minions">
+        <div class="caption">Original Orange</div>
+      </div>
+      </div>
+      <div class="gallery"></div>
+      <p>The Orange and Apple images are blended with a mask that divides the images vertically down the middle. </p>
+      <div class="gallery-item">
+        <img src="assets/oraple.png" alt="Hybrid Image of Po and Kevin">
+        <div class="caption">Hybrid Image of Po and Kevin. Kevin in front (HF), Po in back (LF)</div>
+      </div>
+    </div>
+    
+    <h5 class="section-title">Landscape</h5>
+    <p>
+      I also attempted to apply this to a landscape image where the seam would be the horizon. Cleanly blending these images would mean that it would be impossible to tell that the image came from
+      2 different landscapes. 
+    </p>
+    
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="assets/sunset.webp" alt="Fourier Transform of Po">
+        <div class="caption">Original Sunset</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/greenLush.webp" alt="Fourier Transform of Kevin">
+        <div class="caption">Green Lush</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/landscape.png" alt="Fourier Transform of Kevin">
+        <div class="caption">Combined scene</div>
+      </div>
+    </div>
+    <h5 class="section-title">Ferrari's New F1 Driver, Vishnu Leclerc</h5>
+    <p>
+      I have always been a huge fan of Formula and decided to take matter into my own hands when it came to
+      my chance in F1. Using a manual mask that outlines my face, I superimposed my face on the image of F1 driver Charles Leclerc.
+    </p>
+    
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="assets/200Leclerc.png" alt="Image of a croissant">
+        <div class="caption">F1 Driver Charles Leclerc</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/vishnu.jpeg" alt="Image of a cookie">
+        <div class="caption">Picture of me</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Vishnu_Leclerc.png" alt="Merged image of cookie and croissant">
+        <div class="caption">Vishnu Leclerc</div>
+      </div>
+    </div>
+
+    
+    
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; My Portfolio</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
