@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Portfolio</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Project 3</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#correspondence">Correspondence</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#midway">Midway</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#meanFace">Mean Face</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#caricatures">Caricatures</a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="#BW">Bells and Whistles</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content Section -->
+  <div class="container">
+    
+    <!-- Header Section -->
+    <div class="header-section text-center">
+      <h1>Morphing</h1>
+      <p class="lead">An exploration of image augmentation through affine transformations for image warping</p>
+    </div>
+
+    <!-- Overview Section -->
+    <div id="Overview" class="content-section">
+      <h2 class="section-title">Overview</h2>
+      <p>This project explored the use of image warping and dissolving to generate hybrid images. The images below are a combination of affine transformations on triangulations, as well as cross-dissolving on those image compartments. This results in beautiful hybrid images that allow for the creation of interesting Photoshop-like effects.
+      </p>
+      
+      
+    </div>
+
+    <!-- Correspondence -->
+    <div id="correspondence" class="content-section">
+      <h2 class="section-title">Corespondence</h2>
+      <p>This section demonstrates how correpsondences were calculated. I wrote a python script that collects dots pairs from both images and constructs a triangulation with the <code>Delaunay Triangulation</code> </p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/Aligned_Namu.png" alt="Image 1">
+          <div class="caption">Original Namu</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/Aligned_Anw.png" alt="Image 2">
+          <div class="caption">Original Anwita</div>
+        </div>
+      </div>
+      <p>The following images show the result of the triangulation</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/Namu_triangulation.png" alt="Image 3">
+          <div class="caption">Namu Triangulation</div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/Anwita_triangulation.png" alt="Image 4">
+          <div class="caption">Anwita Triangulation</div>
+        </div>
+      </div>
+      
+    </div>
+
+
+    <!-- midway Section -->
+    <div id="midway" class="content-section">
+        <h2 class="section-title">Midway</h2>
+        <p>Using the triangulations from above, I was able to perform a morph and cross-dissolve to create a hybrid image of these two people. The following images show the result. This image was calculated using the following equation: <code>1/2*(morph(image1) + morph(image2))</code>. The morph function applies an affine transformation from the original triangulation to the average triangulation between both images.
+        </p> 
+        <div class="image-row">
+          <div class="image-item">
+              <img src="assets/Aligned_Anw.png" alt="Chloe">
+              <div class="caption">Anwita</div>
+          </div>
+          <div class="image-item">
+              <img src="assets/midway.png" alt="Chloe-Angela Midway">
+              <div class="caption">Mix of Both</div>
+          </div>
+          <div class="image-item">
+              <img src="assets/Aligned_Namu.png" alt="Angela">
+              <div class="caption">Namu</div>
+          </div>
+        </div>
+    </div>
+    
+
+
+    <!-- morph Section -->
+    <div id="morphSequence" class="content-section">
+      <h2 class="section-title">Morph Sequence</h2>
+      <p>
+        Using the image merging from the previous section, I was able to create sliding morph sequences. Instead of implicitly assuming a 50/50 split, I interpolated the merge of the two images in the morph and cross-dissolve sequence using the following interpolation equation: <code>t*(img1[points/colors] + (1-t)*img2[points/colors])</code>.
+      <div class="gallery">
+        <div class="gallery-item" style="width: 800px; height: 500px;">
+          <img src="assets/New-file.gif" alt="transition" width="800" height="800">
+          <div class="caption">Morph Sequence Transition (jitter was used to make it loop)</div>
+        </div>
+      </div>
+      
+      
+      </div>
+
+      
+
+
+   <!-- Image Blending Section -->
+   <div id="meanFace" class="content-section">
+    <h2 class="section-title">Mean Face</h2>
+    <p>
+      Using the Brazilian face dataset, I constructed an average 
+      face image by averaging the morphed triangulations of the images in the dataset.
+    </p>
+    <h5 class="section-title">Examples of morphed images</h5>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="assets/meanMorphEx1.png" alt="Original Po from Kung Fu Panda">
+        <div class="caption">Mean Morph 1</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/meanMorphEx2.png" alt="Original Po from Kung Fu Panda">
+        <div class="caption">Mean Morph 2</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/meanMorphEx3.png" alt="Original Po from Kung Fu Panda">
+        <div class="caption">Mean Morph 3</div>
+      </div>
+      <div class="gallery-item">
+        <img src="assets/meanMorphEx4.png" alt="Original Po from Kung Fu Panda">
+        <div class="caption">Mean Morph 4</div>
+      </div>
+    </div>
+    
+    <h5 class="section-title">Mean Image</h5>
+    <p>
+      Using the transformed images from the previous section, I constructed the average face image by averaging them.
+    </p>
+    
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="assets/braxMean.png" alt="Fourier Transform of Po">
+        <div class="caption">Brazilian Average Face</div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div id="caric" class="content-section">
+    <h2 class="section-title">Caricatures</h2>
+    <p>
+      I also created caricatures of myself by extrapolating my face from the Brazilian average face. 
+      This was achieved by adding alpha values above and below 1 and 0 to create some funky images.
+    </p>
+    <div class="image-row">
+      <div class="image-item">
+          <img src="assets/ZAlignedVish.png" alt="Chloe">
+          <div class="caption">Original Image of me</div>
+      </div>
+      <div class="image-item">
+          <img src="assets/VishnuCaric.png" alt="Chloe-Angela Midway">
+          <div class="caption">Extrapolation with <code>alpha>1</code></div>
+      </div>
+      <div class="image-item">
+          <img src="assets/VishnuCaric2.png" alt="Angela">
+          <div class="caption">Extrapolation with <code>alpha&lt;0 </code></div>
+      </div>
+    </div>
+  </div>
+  <div id="bw" class="content-section"></div>
+<h2 class="section-title">Bells and Whistles</h2>
+<p>
+  I changed the gender of a friend from female to male.
+</p>
+<div class="gallery">
+  <div class="gallery-item">
+    <img src="assets/aligned_indianMale.png" alt="Fourier Transform of Po" >
+    <div class="caption">Indian Average Face</div>
+  </div>
+  <div class="gallery-item">
+    <img src="assets/Aligned_Sanch.png" alt="Fourier Transform of Po">
+    <div class="caption">Sanchitha's Photo</div>
+  </div>
+</div>
+
+<p> </p>
+<p> </p>
+
+<div class="image-row">
+  <div class="image-item">
+      <img src="assets/SanchManShape.png" alt="Chloe">
+      <div class="caption">Sanchitha Man Facial Shape</div>
+  </div>
+  <div class="image-item">
+      <img src="assets/SanchManAppear.png" alt="Chloe-Angela Midway">
+      <div class="caption">Sanchitha Man Appearance</div>
+  </div>
+  <div class="image-item">
+      <img src="assets/SanchManAppearComplete.png" alt="Angela">
+      <div class="caption">Sanchitha Man Appearance Complete</div>
+  </div>
+</div>
+
+<h5> 3D Morphing</h5>
+<p>
+  I have a little bit of experience with CAD systems and realized that the STL file format is just 3D triangulation.
+  I attempted to use two STL files to morph a sphere into a pyramid with mixed success. 
+</p>
+
+<!-- Centering the video -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <video width="600" height="400" autoplay muted loop>
+    <source src="assets/3dMorphing.mov" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+    
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; My Portfolio</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
