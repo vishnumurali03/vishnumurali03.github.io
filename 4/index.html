@@ -356,9 +356,7 @@
 <!--  RANSAC Section -->
 <div id="RANSAC" class="content-section mt-5">
   <h2 class="section-title">RANSAC</h2>
-  <p>We now use the RANSAC algorithm to to pick the best correspondences for perspective transform generation. With 1000 iterations of picking
-    4 points at random fomr my correspondence list and computing a transformation, we can compute the  number of inliers and outliers for that transformation based on a l2 norm and a threshold.
-    the transformation solutoin most inliers is the transformation we want.
+  <p>We now use the RANSAC algorithm to pick the best correspondences for perspective transform generation. With 1000 iterations of picking 4 points at random from the correspondence list and computing a transformation, we can determine the number of inliers and outliers for that transformation based on an L2 norm and a threshold. The transformation solution with the most inliers is the one we want.
   </p>
     <div class="mosaic-example mb-4">
       <div class="row">
