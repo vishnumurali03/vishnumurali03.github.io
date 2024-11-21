@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diffusion</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding-top: 60px;
+    }
+    .container {
+      max-width: 900px;
+    }
+    .header-section {
+      margin-bottom: 40px;
+    }
+    .nav-link {
+      color: #333;
+    }
+    .section-title {
+      margin-top: 40px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+    }
+    .description {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-item {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .big-img {
+      width: 600px;
+      height: 600px;
+      border: 2px solid black;
+      background-image: url('assets/CROPPED_Colorized_emir.tif.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .caption {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .image-item {
+      text-align: center;
+      max-width: 30%;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .caption {
+      padding-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Image Processing Project</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#shoot-pictures">Shoot the Pictures</a></li>
+          <li class="nav-item"><a class="nav-link" href="#recover-homography">Recover Homography Theory</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rectification">Rectification</a></li>
+          <li class="nav-item"><a class="nav-link" href="#mosaic">Mosaic Creation</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content Section -->
+  <div class="container">
+    <!-- Shoot the Pictures Section -->
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Noising Forward</h2>
+      <p>In this section we explore the forward process for adding noise to an image. We iteratively apply noise using <code>torch.randn_like</code> from t = 0 to t = 1000. At each step we sample the random noise and add the array to the image array at t-1. The results are below. </p>
+      <div class="wide-image-container">
+        <img src="assets/forwardNoise.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Calassical Denoising</h2>
+      <p>In this section we explore the classical denoising algorithm. As we have seen in previous projects, the normal blur can function as a low pass filter which is effective at removing some of the noise. as t increments, you can see this technique struggle.
+        Here we apply the torch <code>torchvision.transforms.functional.gaussian_blur</code> function to the image at each step.
+      </p>
+      <div class="wide-image-container">
+        <img src="assets/Classical_Denoise.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">One step Denoise</h2>
+      <p> We now explore the use of the Unet to solve the denoising process where the normal blurring failed. We one shot denoise the 
+        noisy image with the prompt "a high quality image" at multiple time steps. The results are below.
+      </p>
+      <div class="wide-image-container">
+        <img src="assets/OneStepDenoirse.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Iterative Denoise</h2>
+      <p> Extending on the idea from earlier, we are iteratively denoising the image with the prompt "a high quality image" at multiple time steps. Each timestep
+        incrementally moves the random noise closer to the real image manifold. 
+      </p>
+      <div class="wide-image-container">
+        <img src="assets/Iterative_denoise.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <!-- Rectification Section -->
+    <div id="rectification" class="content-section mt-5">
+      <h2 class="section-title">Diffusion Sampling</h2>
+      <p>Given the image below, we can see the effect of diffusion sampling. We generate a sample of 5 images from the the Unet
+        We start at timestpe = 0 and end at timestep = 1000. the input is a completely random image.
+      </p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/Diffusion1.png" alt="Image 1">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/Diffusion2.png" alt="Image 2">
+        </div>
+      </div>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="assets/Diffusion3.png" alt="Image 3">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/Diffusion4.png" alt="Image 4">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/Diffusion5.png" alt="Image 4">
+        </div>
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Classifier Free Guidance</h2>
+      <p> At the expensive of image diversity, we can apply classifier free guidance to the Unet. This streamlines the error model with this funciton 
+        <code>ϵ = ϵ_u + γ(ϵ_c - ϵ_u) </code> The error unconditional is simply the output of the Unet with an empty prompt(e_u). The results are below.
+      </p>
+      <div class="wide-image-container">
+        <img src="assets/CFG_generated.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Image to Image translation</h2>
+      <p> We can make edits to an image by adding noise to the image and applying UNet to teh noisy image. In the images below we begin teh diffusion process
+        at varying noise levels. We then reconstruct the image allowing teh algorithm to make edits in the process. 
+      </p>
+      <div class="wide-image-container">
+        <img src="assets/CFG1.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/CFG2.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/CFG3.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Hand Drawn Images</h2>
+      <p> We then apply the algorithm above to hand drawn images with the prompt "a high quality image". The results are below.
+      </p>
+      <div class="wide-image-container">
+        <img src="assets/Hand1.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/Hand2.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/Hand3.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">In Painting</h2>
+      <p> In this section we use masks to fill certain sections of an image with a diffeernet image. This is achieved by processing steps of the image with the 
+        equation below.
+        $$ x_t \leftarrow \mathbf{m} x_t + (1 - \mathbf{m}) \, \text{forward}(x_{\text{orig}}, t) $$
+
+      </p>
+      
+      <div class="wide-image-container">
+        <img src="assets/Inpaint1.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/Inpaint2.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/Inpaint3.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Text to Image Translation</h2>
+      <p> In this section we make edits to an image by guiding it with a specfic prompt instead of "a high quality image". The examples are below
+      </p>
+      
+      <div class="wide-image-container">
+        <img src="assets/TextG1.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/TextG2.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/TextG3.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">MNIST Denoiser</h2>
+      <p> In this section we build out the Unet archetecture in Pytorch for teh MNISt data set. We initially train the Unet on the MNIST data set with noise ration of alphe = 0.5.
+        We then assess teh quality of the denoiser on teh test set using multiple different alphas as displayed below. 
+        The subplot shows epoch 1 on top and epoch 5 at the bottom.
+      </p>
+      
+      <div class="wide-image-container">
+        <img src="assets/Noise_sample.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/Sample_epoch.png" alt="Description of your image" class="wide-image">
+      </div>
+      <div class="wide-image-container">
+        <img src="assets/Denoise_loss.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Time Conditioned</h2>
+      <p> Building on hte UNet architecture form above, we now added Fully Connected Layers to condition on time. The time fraction was passed into 
+        these layers and appended to the unflattten and upblock1 layers.
+      </p>
+      
+      <div class="wide-image-container">
+        <img src="assets/Loss_TimeCond.png" alt="Description of your image" class="wide-image">
+      </div>
+      <p>Below is theresults at epoch 5 </p>
+      <div class="wide-image-container">
+        <img src="assets/TImeCond_5epoch.png" alt="Description of your image" class="wide-image">
+      </div>
+      <p>Below is theresults at epoch 20 </p>
+      <div class="wide-image-container">
+        <img src="assets/TimeConditionResults.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+    <div id="shoot-pictures" class="content-section mt-5">
+      <h2 class="section-title">Class conditioned</h2>
+      <p> Additional FCB layers were added to condition on class and multiplied to the same variable as time condition. 
+        This results in images that actually correspond to the numbers
+      </p>
+      
+      <div class="wide-image-container">
+        <img src="assets/ClassCondLoss.png" alt="Description of your image" class="wide-image">
+      </div>
+      <p>Below is the results at epoch 5 </p>
+      <div class="wide-image-container">
+        <img src="assets/ClassEpoch5.png" alt="Description of your image" class="wide-image">
+      </div>
+      <p>Below is the results at epoch 20 </p>
+      <div class="wide-image-container">
+        <img src="assets/ClassEpoch20.png" alt="Description of your image" class="wide-image">
+      </div>
+    </div>
+
+
+  
+
+
+
+</div>
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; Project 4</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
