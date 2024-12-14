@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diffusion</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding-top: 60px;
+    }
+    .container {
+      max-width: 900px;
+    }
+    .header-section {
+      margin-bottom: 40px;
+    }
+    .nav-link {
+      color: #333;
+    }
+    .section-title {
+      margin-top: 40px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+    }
+    .description {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-item {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .big-img {
+      width: 600px;
+      height: 600px;
+      border: 2px solid black;
+      background-image: url('assets/CROPPED_Colorized_emir.tif.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .caption {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .image-item {
+      text-align: center;
+      max-width: 30%;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .caption {
+      padding-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Final Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    </div>
+  </div>
+</nav>
+
+<!-- Content Section -->
+<div class="container">
+  <!-- Shoot the Pictures Section -->
+  <div id="shoot-pictures" class="content-section mt-5">
+    <h2 class="section-title">Depth Refocusing</h2>
+    <p>In this section we used a number of images to create multiple focuses in a scene. Using teh assortment of chess board images avialble with slightly different centers, we were able to re-align these images based on a varying center to create higher focuses regions and lower focused regions.
+      and lower focused regions. The results are below. </p>
+    <div class="gallery d-flex flex-wrap">
+      <div class="gallery-item ">
+        <img src="assets/Example_Board.png" class="img-fluid" alt="Rectified Image 1">
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Varying_board.png" class="img-fluid" alt="Rectified Image 2">
+      </div>
+      <div class="gallery-item">
+        <img src="assets/chessGif.gif" class="img-fluid" alt="Rectified Image 3">
+      </div>
+    </div>
+  </div>
+
+  <div id="shoot-pictures-1" class="content-section mt-5">
+    <h2 class="section-title">Aperture Adjustment</h2>
+    <p>In this section, we vary the zone considered for image generation. As the array of alignment grows, the ability to get a good alignment consensus drops due to the increase in the number of photos used.
+      This decreases the aperture, as visible in higher aperture sizes. The results are below.
+    </p>
+    <div class="wide-image-container">
+      <img src="assets/ApertureShot.png" alt="Description of your image" class="wide-image">
+    </div>
+    <div class="wide-image-container">
+      <img src="assets/refocus.gif" alt="Description of your image" class="wide-image">
+    </div>
+  </div>
+
+  <div id="shoot-pictures-1" class="content-section mt-5"></div>
+    <h2 class="section-title">B&W Interactive Focus</h2>
+    <p>Focus calculation can be controlled with the slider
+    </p>
+    <div class="wide-image-container">
+      <img src="assets/slider.mov" alt="Description of your image" class="wide-image">
+    </div>
+  </div>
+  
+  <div id="shoot-pictures-2" class="content-section mt-5">
+    <h2 class="section-title">Gradient Domain Fusion, Toy Problem</h2>
+    <p>In this section, we explore using the gradients collected from an image to reconstruct the image. At every pixel, we calculate X and Y gradients.
+      The gradients are then extrapolated to generate the original image. The results are below. The top is the original image, and the bottom is the reconstructed image.
+    </p>
+    <div class="wide-image-container">
+      <img src="assets/toy_problem.png" alt="Description of your image" class="wide-image">
+    </div>
+    <div class="wide-image-container">
+      <img src="assets/reconstructed.png" alt="Description of your image" class="wide-image">
+    </div>
+  </div>  
+
+  <div id="shoot-pictures" class="content-section mt-5">
+    <h2 class="section-title">Poisson Blending</h2>
+    <p>
+      In this section, we utilized Poisson Blending to minimize artifacts when blending images. This works by first generating a mask of the image and then using the mask to blend the images.
+      The blending region minimizes the gradient difference between the source image and the final image plus the base image minus the final image. The actual computation calculates the effective gradient
+      in x and y for both sets of images, then solves the optimization problem above to get the blend. The results are below.
+    </p>
+    <div class="wide-image-container">
+      <img src="assets/rawPeng.png" alt="Raw Penguin Image" class="wide-image">
+    </div>
+    <div class="wide-image-container">
+      <img src="assets/PosPeng.png" alt="Poisson Blended Penguin Image" class="wide-image">
+    </div>
+    <div class="wide-image-container">
+      <img src="assets/rawVish.png" alt="Raw Vish Image" class="wide-image">
+    </div>
+    <div class="wide-image-container">
+      <img src="assets/PosVish.png" alt="Poisson Blended Vish Image" class="wide-image">
+    </div>
+  </div>
+  
+</body>
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; Project 4</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
